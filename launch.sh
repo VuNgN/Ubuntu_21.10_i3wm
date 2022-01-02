@@ -5,7 +5,6 @@ killall -q polybar
 # If all your bars have ipc enabled, you can also use 
 # polybar-msg cmd quit
 
-# Launch bar1 and bar2
 echo "---" | tee -a /tmp/polybar1.log /tmp/polybar2.log /tmp/polybar3.log /tmp/polybar4.log
 polybar HDMI 2>&1 | tee -a /tmp/polybar1.log & disown
 polybar eDP 2>&1 | tee -a /tmp/polybar2.log & disown

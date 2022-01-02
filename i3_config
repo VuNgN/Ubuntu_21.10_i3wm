@@ -178,13 +178,13 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # use command 'xprop' to see app's class
 assign [class="Alacritty"]                       $ws1
 assign [class="Firefox"]                         $ws2
+assign [class="Google-chrome"]                   $ws2
 assign [class="Code"]                            $ws3
 assign [class="Slack"]                           $ws4
 assign [class="zoom"]                            $ws5
 assign [class="discord"]                         $ws5
-assign [class="Google-chrome"]                   $ws6
-assign [class="Org.gnome.Nautilus"]              $ws7
-assign [class="spotify"]                         $ws8
+assign [class="Org.gnome.Nautilus"]              $ws6
+assign [class="spotify"]                         $ws7
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -242,8 +242,6 @@ bindsym $mod+m move workspace to output right
 # Rofi
 bindsym $mod+p exec "rofi -show run -lines 3 -eh 2 -width 100 -padding 500 -opacity '85' -bw 0 -color-normal '$rofi-item-background-color,$rofi-text-color,$rofi-item-background-color,$rofi-item-background-color,$rofi-text-active-color' -color-window '$rofi-background-color,$rofi-background-color,$rofi-background-color' -font 'System San Francisco Display 14'"
 
-#rofi -show run -lines 3 -eh 2 -width 100 -padding 500 -opacity "85" -bw 0 -color-normal "#000000, #ffffff, #000000, #000000, #9575cd" -color-window "#000000, #000000, #000000" -font "System San Francisco Display 18"
-
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
@@ -266,12 +264,11 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+shift+x exec sh $HOME/.config/i3/i3lock.sh
 
 #exec_always rhythmbox
-#exec_always --no-startup-id hsetroot -solid '$screen-bg-color' -solid '$screen-bg-color'
-exec_always --no-startup-id sh $HOME/.screenlayout/config.sh
-exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
+exec_always "sh $HOME/.screenlayout/config.sh"
+exec_always nitrogen --restore
+exec_always "sh $HOME/.config/polybar/launch.sh"
 exec_always "compton -f"
 exec_always xautolock -time 10 -locker "sh $HOME/.config/i3/i3lock.sh" &
 #exec alacritty
-exec firefox
+#exec firefox
 exec slack
-exec_always --no-startup-id feh --bg-scale './Pictures/background/222831.png' --bg-scale './Pictures/background/222831.png'
