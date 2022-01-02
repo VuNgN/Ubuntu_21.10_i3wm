@@ -38,6 +38,9 @@ default_border pixel 3
 default_floating_border pixel 1
 gaps outer 0
 gaps inner 10
+gaps vertical -7
+gaps horizontal 10
+
 #smart_gaps on
 #smart_borders on
 #new_window pixel 3
@@ -106,7 +109,7 @@ bindsym $mod+Shift+l move right
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Right mov right
 
 # split in horizontal orientation
 bindsym $mod+Shift+v split h
@@ -126,7 +129,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -175,7 +178,13 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # use command 'xprop' to see app's class
 assign [class="Alacritty"]                       $ws1
 assign [class="Firefox"]                         $ws2
-assign [class="Org.gnome.Nautilus"]              $ws4
+assign [class="Code"]                            $ws3
+assign [class="Slack"]                           $ws4
+assign [class="zoom"]                            $ws5
+assign [class="discord"]                         $ws5
+assign [class="Google-chrome"]                   $ws6
+assign [class="Org.gnome.Nautilus"]              $ws7
+assign [class="spotify"]                         $ws8
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -210,6 +219,9 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+bindsym $mod+n move workspace to output left
+bindsym $mod+m move workspace to output right
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -254,9 +266,12 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+shift+x exec sh $HOME/.config/i3/i3lock.sh
 
 #exec_always rhythmbox
-exec_always --no-startup-id hsetroot -solid '$screen-bg-color'
-exec alacritty
-exec firefox
+#exec_always --no-startup-id hsetroot -solid '$screen-bg-color' -solid '$screen-bg-color'
+exec_always --no-startup-id sh $HOME/.screenlayout/config.sh
+exec_always --no-startup-id sh $HOME/.config/polybar/launch.sh
 exec_always "compton -f"
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id xautolock -time 10 -locker "$HOME/.config/i3/i3lock.sh" &
+exec_always xautolock -time 10 -locker "sh $HOME/.config/i3/i3lock.sh" &
+#exec alacritty
+exec firefox
+exec slack
+exec_always --no-startup-id feh --bg-scale './Pictures/background/222831.png' --bg-scale './Pictures/background/222831.png'

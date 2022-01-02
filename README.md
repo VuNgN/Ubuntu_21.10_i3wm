@@ -2,4 +2,4 @@
 
 https://github.com/altdesktop/playerctl/releases
 
-sudo apt install i3 dmenu rofi arandr lxappearance fonts-font-awesome compton hsetroot
+sudo apt install i3 polybar dmenu rofi arandr lxappearance fonts-font-awesome compton feh
