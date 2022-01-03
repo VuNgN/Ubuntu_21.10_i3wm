@@ -185,6 +185,8 @@ assign [class="zoom"]                            $ws5
 assign [class="discord"]                         $ws5
 assign [class="Org.gnome.Nautilus"]              $ws6
 assign [class="spotify"]                         $ws7
+assign [class="VirtualBox Manager"]              $ws8
+assign [class="VirtualBox Machine"]              $ws8
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -254,14 +256,26 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightne
 # Touchpad controls
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
 
+# Screenshot controls
+bindsym Ctrl+Shift+Print exec flameshot gui
+bindsym Print            exec flameshot full  
+
 # Media player controls
 bindsym XF86AudioPlay exec playerctl play
 bindsym XF86AudioPause exec playerctl pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
+# Micro controls
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
+
+
 # i3lock
 bindsym $mod+shift+x exec sh $HOME/.config/i3/i3lock.sh
+
+# touchpad config
+exec_always xinput set-prop "MSFT0001:01 06CB:CE2D Touchpad" "libinput Tapping Enabled" 1
+exec_always xinput set-prop "MSFTMSFT0001:01 06CB:CE2D Touchpad" "libinput Natural Scrolling Enabled" 1
 
 #exec_always rhythmbox
 exec_always "sh $HOME/.screenlayout/config.sh"
@@ -269,6 +283,7 @@ exec_always nitrogen --restore
 exec_always "sh $HOME/.config/polybar/launch.sh"
 exec_always "compton -f"
 exec_always xautolock -time 10 -locker "sh $HOME/.config/i3/i3lock.sh" &
+exec_always sudo mount /dev/nvme0n1p3 /media/vu/feb506d2-98d7-4b9a-9b3a-6ea01e59adc5
 #exec alacritty
 #exec firefox
 exec slack

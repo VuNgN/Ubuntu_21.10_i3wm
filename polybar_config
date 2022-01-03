@@ -274,12 +274,13 @@ wrapping-scroll = false
 ;pin-workspaces = true
 
 ws-icon-0 = 1;1 
-ws-icon-1 = 2;2 
+ws-icon-1 = 2;2 
 ws-icon-2 = 3;3 
 ws-icon-3 = 4;4 
 ws-icon-4 = 5;5 
 ws-icon-5 = 6;6 
 ws-icon-6 = 7;7 
+ws-icon-7 = 8;8 
 
 label-mode-padding = 2
 label-mode-foreground = #000
@@ -571,9 +572,9 @@ label-separator-foreground = ${colors.foreground-alt}
 menu-0-0 = lock
 menu-0-0-exec = sh $HOME/.config/i3/i3lock.sh
 menu-0-1 = reboot
-menu-0-1-exec = reboot
+menu-0-1-exec = sudo reboot
 menu-0-2 = power off
-menu-0-2-exec = shutdown now
+menu-0-2-exec = sudo shutdown now
 
 [module/mic-volume]
 type = custom/script
