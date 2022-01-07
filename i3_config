@@ -22,8 +22,8 @@ set $text-color          #EEEEEE
 set $inactive-text-color #00ADB5
 set $urgent-bg-color     #F05454
 set $indicator-color     #000000
-set $rofi-background-color #80222831
-set $rofi-item-background-color #16222831
+set $rofi-background-color #f2222831
+set $rofi-item-background-color #00222831
 set $rofi-text-color       #EEEEEE
 set $rofi-text-active-color #00ADB5
 
@@ -242,7 +242,7 @@ bindsym $mod+m move workspace to output right
 
 
 # Rofi
-bindsym $mod+p exec "rofi -show run -lines 3 -eh 2 -width 100 -padding 500 -opacity '85' -bw 0 -color-normal '$rofi-item-background-color,$rofi-text-color,$rofi-item-background-color,$rofi-item-background-color,$rofi-text-active-color' -color-window '$rofi-background-color,$rofi-background-color,$rofi-background-color' -font 'System San Francisco Display 14'"
+bindsym $mod+p exec "rofi -show drun -lines 3 -eh 2 -width 100 -padding 500 -opacity '85' -bw 0 -color-normal '$rofi-item-background-color,$rofi-text-color,$rofi-item-background-color,$rofi-item-background-color,$rofi-text-active-color' -color-window '$rofi-background-color,$rofi-background-color,$rofi-background-color' -font 'System San Francisco Display 14'"
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -282,8 +282,9 @@ exec_always "sh $HOME/.screenlayout/config.sh"
 exec_always nitrogen --restore
 exec_always "sh $HOME/.config/polybar/launch.sh"
 exec_always "compton -f"
-exec_always xautolock -time 10 -locker "sh $HOME/.config/i3/i3lock.sh" &
+exec_always xautolock -time 5 -locker "sh $HOME/.config/i3/i3lock.sh" &
 exec_always sudo mount /dev/nvme0n1p3 /media/vu/feb506d2-98d7-4b9a-9b3a-6ea01e59adc5
+#exec_always udisksctl mount -b /dev/nvme0n1p3
 #exec alacritty
 #exec firefox
 exec slack

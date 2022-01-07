@@ -30,7 +30,7 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #222831
+background = #00222831
 background-alt = #393E46
 ;foreground = ${xrdb:color7:#222}
 foreground = #EEEEEE
@@ -75,7 +75,7 @@ font-3 = FontAwesome:style=Regular:pixelsize=10;2
 
 modules-left = i3
 modules-center = xwindow
-modules-right = xkeyboard memory wlan battery temperature date powermenu
+modules-right = wlan battery date powermenu
 
 tray-position = right
 tray-padding = 2
@@ -156,6 +156,8 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 font-3 = FontAwesome:style=Regular:pixelsize=10;2
 
+modules-left = memory cpu
+modules-center = mpd
 modules-right = pulseaudio mic-volume
 
 tray-position = right
@@ -196,6 +198,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 font-3 = FontAwesome:style=Regular:pixelsize=10;2
 
+modules-center = mpd
 modules-right = filesystem pulseaudio mic-volume
 
 tray-position = right
@@ -315,16 +318,40 @@ label-urgent-padding = 2
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+;format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <label-song> <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random> <label-time> 
+format-online-paused = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online-stopped = <icon-prev> <icon-seekb> <toggle> <icon-seekf> <icon-next>
 
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
+format-playing = ${self.format-online}
+format-paused = ${self.format-online-paused}
+format-stopped = ${self.format-online}
+format-offline = <label-offline>
 
+host = 127.0.0.1
+port = 6600
+password = 123
+
+
+icon-play = 
+icon-pause = 
+icon-stop = 
+icon-prev = 
+icon-next = 
+icon-seekb = 
+icon-seekf = 
+icon-random = 
+icon-repeat = 
+icon-repeatone = 1
+icon-single = 1
+icon-consume = 
+
+label-song =  %title%
 label-song-maxlen = 25
 label-song-ellipsis = true
+
+;label-offline =  mpd is offline
+label-offline = 
 
 [module/xbacklight]
 type = internal/xbacklight
@@ -572,9 +599,9 @@ label-separator-foreground = ${colors.foreground-alt}
 menu-0-0 = lock
 menu-0-0-exec = sh $HOME/.config/i3/i3lock.sh
 menu-0-1 = reboot
-menu-0-1-exec = sudo reboot
+menu-0-1-exec = i3-nagbar -t warning -m 'You clicked the reboot shortcut. Do you really want to reboot?' -B       'Yes, reboot now' 'sudo reboot'
 menu-0-2 = power off
-menu-0-2-exec = sudo shutdown now
+menu-0-2-exec = i3-nagbar -t warning -m 'You clicked the shutdown shortcut. Do you really want to shutdown?' -B       'Yes, shutdown now' 'sudo shutdown now'
 
 [module/mic-volume]
 type = custom/script
