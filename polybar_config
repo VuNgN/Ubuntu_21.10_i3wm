@@ -624,11 +624,13 @@ format = <ramp> <label>
 format-underline = ${colors.primary}
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
+format-warn-background = ${colors.model-background}
 
 label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
-label-warn-background = ${colors.model-background}
+label-background = ${colors.model-background}
+label-padding = 2
 
 ramp-0 = 
 ramp-1 = 
