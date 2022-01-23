@@ -31,6 +31,7 @@
 [colors]
 ;background = ${xrdb:color0:#222}
 background = #00222831
+model-background = #222831
 background-alt = #393E46
 ;foreground = ${xrdb:color7:#222}
 foreground = #EEEEEE
@@ -63,7 +64,7 @@ border-size = 10
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
 module-margin-left = 1
 module-margin-right = 1
@@ -79,6 +80,7 @@ modules-right = wlan battery date powermenu
 
 tray-position = right
 tray-padding = 2
+tray-background = ${colors.model-background}
 
 wm-restack = i3
 
@@ -88,11 +90,11 @@ cursor-scroll = ns-resize
 [bar/eDP]
 monitor = ${env:MONITOR:eDP-1-1}
 width = 100%
-height = 20
-offset-x = 5
-offset-y = 5
+height = 25
+offset-x = 0
+offset-y = 0
 radius = 6.0
-fixed-center = false
+fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -104,7 +106,7 @@ border-size = 10
 border-color = #00000000
 
 padding-left = 0
-padding-right = 2
+padding-right = 0
 
 module-margin-left = 1
 module-margin-right = 1
@@ -116,10 +118,11 @@ font-3 = FontAwesome:style=Regular:pixelsize=10;2
 
 modules-left = i3
 modules-center = xwindow
-modules-right = xkeyboard memory cpu wlan eth battery temperature date powermenu
+modules-right = xkeyboard wlan battery date powermenu
 
 tray-position = right
 tray-padding = 2
+tray-background = ${colors.model-background}
 
 wm-restack = i3
 
@@ -145,7 +148,7 @@ line-color = ${colors.primary}
 border-size = 5
 border-color = #00000000
 
-padding-left = 0
+padding-left = 2
 padding-right = 2
 
 module-margin-left = 1
@@ -156,12 +159,13 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 font-3 = FontAwesome:style=Regular:pixelsize=10;2
 
-modules-left = memory cpu
+modules-left = memory cpu eth
 modules-center = mpd
 modules-right = pulseaudio mic-volume
 
 tray-position = right
 tray-padding = 2
+tray-background = ${colors.model-background}
 
 wm-restack = i3
 
@@ -187,7 +191,7 @@ line-color = ${colors.primary}
 border-size = 5
 border-color = #00000000
 
-padding-left = 0
+padding-left = 2
 padding-right = 2
 
 module-margin-left = 1
@@ -198,11 +202,13 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 font-3 = FontAwesome:style=Regular:pixelsize=10;2
 
+modules-left = memory cpu eth temperature
 modules-center = mpd
 modules-right = filesystem pulseaudio mic-volume
 
 tray-position = right
 tray-padding = 2
+tray-background = ${colors.model-background}
 
 wm-restack = i3
 
@@ -218,23 +224,29 @@ cursor-scroll = ns-resize
 type = internal/xwindow
 label = %title:0:30:...%
 format-foreground = ${colors.secondary}
+label-background = ${colors.model-background}
+label-padding = 10
 
 [module/xkeyboard]
 type = internal/xkeyboard
 blacklist-0 = num lock
 blacklist-1 = scroll lock
 
-format-prefix = " "
-format-prefix-foreground = ${colors.primary}
-format-prefix-underline = ${colors.primary}
+;format-prefix = " "
+;format-prefix-foreground = ${colors.primary}
+;format-prefix-underline = ${colors.primary}
 
-label-layout = %layout% 
+label-layout =  %layout% 
 label-layout-underline = ${colors.secondary}
+label-layout-background= ${colors.model-background}
+label-layout-padding = 2
 
 label-indicator-padding = 2
 label-indicator-margin = 1
-label-indicator-background = ${colors.secondary}
-label-indicator-underline = ${colors.seconda
+label-indicator-background = ${colors.model-background}
+label-indicator-underline = ${colors.secondary}
+
+
 [module/filesystem]
 type = internal/fs
 interval = 25
@@ -244,6 +256,8 @@ mount-0 = /
 label-mounted =   %used% of %total%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
+label-mounted-background = ${colors.model-background}
+label-mounted-padding = 2
 
 [module/bspwm]
 type = internal/bspwm
@@ -355,9 +369,9 @@ label-offline =
 
 [module/xbacklight]
 type = internal/xbacklight
-output = HDMI-0
-format = <label> <bar>
-label = BL
+output = eDP-1-1
+format = <label> 
+label = %percentage%%
 
 bar-width = 10
 bar-indicator = |
@@ -402,56 +416,81 @@ bar-empty = ─
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.primary}
+;format-prefix = " "
+;format-prefix-foreground = ${colors.primary}
+;format-prefix-background = ${colors.model-background} 
+;format-prefix-padding = 2
 format-underline = ${colors.primary}
-label = %percentage:2%%
+label = %percentage:2%%
+label-background = ${colors.model-background}
+label-padding = 2
+
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.primary}
-format-underline = ${colors.primary}
-label = %percentage_used%%
+;format-prefix = " "
+;format-prefix-foreground = ${colors.primary}
+;format-prefix-background = ${colors.model-background} 
+;format-underline = ${colors.primary}
+label =  %percentage_used%%
+label-background = ${colors.model-background}
+label-padding = 2
 
 [module/wlan]
 type = internal/network
 interface = wlp0s20f3
-interval = 3.0
+interval = 1.0
 
-format-connected = <ramp-signal> <label-connected>
+format-connected = <label-connected>
 format-connected-underline = ${colors.primary}
 label-connected =  %essid%
+label-connected-background = ${colors.model-background}
+label-connected-padding = 2
 
 format-disconnected =  not connected
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
+label-disconnected-background = ${colors.model-background}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = ${colors.foreground-alt}
+/*ramp-signal-0 = 😱*/
+/*ramp-signal-1 = 😠*/
+/*ramp-signal-2 = 😒*/
+/*ramp-signal-3 = 😊*/
+/*ramp-signal-4 = 😃*/
+/*ramp-signal-5 = 😈*/
+/*ramp-signal-foreground = ${colors.foreground-alt}*/
+
+format-packetloss = <animation-packetloss> <label-connected>
+animation-packetloss-0 = ⚠
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 📶
+animation-packetloss-1-foreground = #000000
+; Framerate in milliseconds
+animation-packetloss-framerate = 500
 
 [module/eth]
 type = internal/network
-interface = enp0s31f6
-interval = 3.0
+interface = wlp0s20f3
+interval = 1.0
 
 format-connected-underline = ${colors.primary}
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+label-connected = %upspeed%  %downspeed%
+label-connected-background = ${colors.model-background}
+label-connected-padding = 2
 
-format-disconnected =
+format-disconnected = not connected
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
+label-disconnected-background = ${colors.model-background}
+label-disconnected-padding = 2
+
 
 [module/date]
 type = internal/date
@@ -463,21 +502,28 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
-format-prefix-foreground = ${colors.primary}
-format-underline = ${colors.primary}
+;format-prefix = 
+;format-prefix-foreground = ${colors.primary}
+;format-underline = ${colors.primary}
 
-label = %date% %time%
+label = %date% %time%
+label-background = ${colors.model-background}
+label-padding = 2
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
+;format-volume = <label-volume> <bar-volume>
+format-volume = <label-volume>
 label-volume =  %percentage%%
 label-volume-foreground = ${root.foreground}
+label-volume-background = ${colors.model-background}
+label-volume-padding = 2
 
 label-muted =  muted
 label-muted-foreground = ${colors.primary}
+label-muted-background = ${colors.model-background}
+label-muted-padding = 2
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -488,7 +534,7 @@ bar-volume-foreground-4 = #55aa55
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
-bar-volume-indicator = |
+bar-volume-indicator = 
 bar-volume-indicator-font = 2
 bar-volume-fill = ─
 bar-volume-fill-font = 2
@@ -532,13 +578,19 @@ full-at = 98
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = ${colors.primary}
+format-charging-background = ${colors.model-background}
+format-charging-padding = 2
 
 format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
+format-discharging-background = ${colors.model-background}
+format-discharging-padding = 2
 
 format-full-prefix = "  "
 format-full-prefix-foreground = ${colors.primary}
 format-full-underline = ${self.format-charging-underline}
+format-full-background = ${colors.model-background}
+format-full-padding = 2
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -576,6 +628,7 @@ format-warn-underline = ${self.format-underline}
 label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
+label-warn-background = ${colors.model-background}
 
 ramp-0 = 
 ramp-1 = 
@@ -588,31 +641,48 @@ type = custom/menu
 expand-right = true
 
 format-spacing = 1
-
+;format-background = ${colors.secondary}
+;format-padding = 2
 label-open = 
-label-open-foreground = ${colors.red}
+label-open-foreground = ${colors.background-alt}
+label-open-background = ${colors.secondary}
+label-open-padding = 2
 label-close =  cancel
-label-close-foreground = ${colors.red}
+label-close-foreground = ${colors.foreground-alt}
+label-close-background = ${colors.red}
+label-close-padding = 1
 label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
+label-separator-foreground = ${colors.background-alt}
 
-menu-0-0 = lock
+menu-0-0 = 
+menu-0-0-padding = 2
+menu-0-0-background = ${colors.model-background}
 menu-0-0-exec = sh $HOME/.config/i3/i3lock.sh
-menu-0-1 = reboot
+menu-0-1 = 
+menu-0-1-padding = 2
+menu-0-1-background = ${colors.model-background}
 menu-0-1-exec = i3-nagbar -t warning -m 'You clicked the reboot shortcut. Do you really want to reboot?' -B       'Yes, reboot now' 'sudo reboot'
-menu-0-2 = power off
+menu-0-2 = 
+menu-0-2-padding = 2
+menu-0-2-background = ${colors.model-background}
+menu-0-2-foreground = ${colors.red}
 menu-0-2-exec = i3-nagbar -t warning -m 'You clicked the shutdown shortcut. Do you really want to shutdown?' -B       'Yes, shutdown now' 'sudo shutdown now'
 
 [module/mic-volume]
 type = custom/script
 interval = 1
 format =  <label>
+format-background = ${colors.model-background}
+format-padding = 2
 exec = bash /home/vu/.config/polybar/mic-volume.sh show-vol "alsa_input.pci-0000_00_1f.3.analog-stereo"
 
 ; Control actions (using pactl)
 click-left = bash /home/vu/.config/polybar/mic-volume.sh mute-vol "alsa_input.pci-0000_00_1f.3.analog-stereo"
 scroll-up = bash /home/vu/.config/polybar/mic-volume.sh inc-vol "alsa_input.pci-0000_00_1f.3.analog-stereo"
 scroll-down = bash /home/vu/.config/polybar/mic-volume.sh dec-vol "alsa_input.pci-0000_00_1f.3.analog-stereo"
+;label-background = ${colors.model-background}
+;label-padding = 2
+
 
 [settings]
 screenchange-reload = true
@@ -623,7 +693,7 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosinil
